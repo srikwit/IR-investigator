@@ -30,7 +30,7 @@ function USBInformation(){
 }
 
 function ASEPInformation(){
-#..\Tools\\autorunsc.exe -a * -c -h -s -t -nobanner > autorunsc.csv
+..\Tools\autorunsc.exe -a * -c -h -s -t -nobanner > autorunsc.csv
 }
 
 function SignatureInformation(){
@@ -71,6 +71,16 @@ function PrinterInformation(){
     Get-WmiObject Win32_Printer | Select-Object -Property Caption, Description, DriverName, InstallDate, JobCountSinceLastReset, Name, PrinterState, PrinterStatus, ServerName, Shared, ShareName, Status, StatusInfo, SystemName | Export-Csv -Force -NoTypeInformation PrinterInformation.csv
 }
 
+function Initialization(){
+New-Item -Name Output -ItemType Directory -ErrorAction Stop
+Set-Location Output
+}
+
+function Cleanup(){
+
+}
+
+Initialization
 ComputerSystemInformation
 NetworkShareInformation
 NetworkingInformation
@@ -86,3 +96,4 @@ AVInformation
 SoftwareInformation
 ServiceInformation
 PrinterInformation
+Cleanup
